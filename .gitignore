@@ -204,3 +204,6 @@ octave-workspace
 *.exe
 *.out
 *.app
+
+# Misc
+*.srctrl*
