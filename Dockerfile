@@ -44,14 +44,16 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 RUN sudo chsh -s /bin/zsh
 
 # Install Miniconda and Python 3.8
+ENV PATH=/home/user/miniconda/bin:$PATH
+ENV CONDA_AUTO_UPDATE_CONDA=false
 RUN curl -sLo ~/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && chmod +x ~/miniconda.sh \
     && ~/miniconda.sh -b -p ~/miniconda \
     && rm ~/miniconda.sh \
     && conda install -y python==3.8.3 \
     && conda clean -ya
-ENV CONDA_AUTO_UPDATE_CONDA=false
-ENV PATH=/home/user/miniconda/bin:$PATH
+
+
 
 # CUDA 11.0-specific steps
 RUN conda install -y -c pytorch \
