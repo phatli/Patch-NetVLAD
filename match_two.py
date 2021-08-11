@@ -69,13 +69,15 @@ def plot_two(cv_im_one, cv_im_two, inlier_keypoints_one, inlier_keypoints_two, p
     kp_all1 = []
     kp_all2 = []
     matches_all = []
+    keypoints_i = 0
     for this_inlier_keypoints_one, this_inlier_keypoints_two in zip(inlier_keypoints_one, inlier_keypoints_two):
         for i in range(this_inlier_keypoints_one.shape[0]):
             kp_all1.append(cv2.KeyPoint(this_inlier_keypoints_one[i, 0].astype(
                 float), this_inlier_keypoints_one[i, 1].astype(float), 1, -1, 0, 0, -1))
             kp_all2.append(cv2.KeyPoint(this_inlier_keypoints_two[i, 0].astype(
                 float), this_inlier_keypoints_two[i, 1].astype(float), 1, -1, 0, 0, -1))
-            matches_all.append(cv2.DMatch(i, i, 0))
+            matches_all.append(cv2.DMatch(keypoints_i, keypoints_i, 0))
+            keypoints_i += 1
 
     im_allpatch_matches = cv2.drawMatches(cv_im_one, kp_all1, cv_im_two, kp_all2,
                                           matches_all, None, matchColor=(0, 255, 0), flags=2)
