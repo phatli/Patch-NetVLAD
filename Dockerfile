@@ -1,7 +1,15 @@
 FROM nvidia/cuda:11.0-base-ubuntu20.04
 
+# setup timezone
+RUN echo 'Etc/UTC' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Asia/Singapore /etc/localtime && \
+    apt-get update && \
+    apt-get install -q -y --no-install-recommends tzdata && \
+    rm -rf /var/lib/apt/lists/*
+
 # Install some basic utilities
-RUN apt-get update && apt-get install -y \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update && apt-get install -y \
     curl \
     ca-certificates \
     sudo \
@@ -11,18 +19,11 @@ RUN apt-get update && apt-get install -y \
     tmux \
     wget \
     vim \
+    libgl1-mesa-glx \
+    ffmpeg libsm6 libxext6 \
     && rm -rf /var/lib/apt/lists/*
 
-# setup timezone
-RUN echo 'Etc/UTC' > /etc/timezone && \
-    ln -s /usr/share/zoneinfo/Asia/Singapore /etc/localtime && \
-    apt-get update && \
-    apt-get install -q -y --no-install-recommends tzdata && \
-    rm -rf /var/lib/apt/lists/*
 
-# Expose ports
-EXPOSE 6006
-EXPOSE 6379
 
 # Create a non-root user and switch to it
 RUN adduser --disabled-password --gecos '' --shell /bin/bash user 
@@ -73,12 +74,13 @@ RUN conda install -y numpy \
     && conda install -c conda-forge scikit-learn \
     && conda install -c conda-forge natsort \
     && conda install -c conda-forge tqdm \
-    && conda install -c conda-forge opencv \
     && conda clean -ya
 
 # pip install dependencies
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir tensorboardX redis matplotlib pandas torchmetrics tensorboard
+    pip install --no-cache-dir tensorboardX redis matplotlib pandas torchmetrics tensorboard opencv-python
+
+# fix 
 
 # set tmux
 RUN sudo echo "set-option -g default-shell /bin/zsh" >> ~/.tmux.conf

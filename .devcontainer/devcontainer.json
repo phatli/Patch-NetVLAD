@@ -4,7 +4,7 @@
   "name": "Ubuntu2004DevEnv",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "patchnetvlad",
-  "workspaceFolder": "/home/user/patchnetvlad",
+  "workspaceFolder": "/home/user/patch-netvlad",
   "shutdownAction": "stopCompose",
   "settings": {
     "terminal.integrated.profiles.linux": {
