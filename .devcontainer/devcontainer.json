@@ -29,7 +29,10 @@
     "christian-kohler.path-intellisense",
     "sleistner.vscode-fileutils",
     "exodiusstudios.comment-anchors",
-    "shd101wyy.markdown-preview-enhanced"
+    "shd101wyy.markdown-preview-enhanced",
+    "mhutchie.git-graph",
+    "elazarcoh.simply-view-image-for-python-debugging",
+    "yzhang.markdown-all-in-one"
   ],
   "remoteUser": "user"
 }
