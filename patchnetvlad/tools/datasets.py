@@ -28,7 +28,7 @@ import os
 
 import torchvision.transforms as transforms
 import torch.utils.data as data
-
+from patchnetvlad.tools.redis_utils import Mat_Redis_Utils
 import numpy as np
 from PIL import Image
 from sklearn.neighbors import NearestNeighbors
@@ -80,9 +80,11 @@ class PlaceDataset(data.Dataset):
 
         self.resize = (int(config['imageresizeH']), int(config['imageresizeW']))
         self.mytransform = input_transform(self.resize)
-
+        self.redis_handle = Mat_Redis_Utils()
+        
     def __getitem__(self, index):
-        img = Image.open(self.images[index])
+        # img = Image.open(self.images[index])
+        img = self.redis_handle.load_PIL(self.images[index])
         img = self.mytransform(img)
 
         return img, index
