@@ -137,7 +137,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
 ## MATLAB stuff
 # Windows default autosave extension
 *.asv
@@ -207,3 +206,5 @@ octave-workspace
 
 # Misc
 *.srctrl*
+# Symbolic link
+patchnetvlad/output_features
